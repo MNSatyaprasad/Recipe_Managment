@@ -46,7 +46,7 @@ public class RecipesController {
 			recipeservicerepo.deleteAllRecipes();
 		}catch(Exception e) {
 			e.printStackTrace();
-			response = new ResponseEntity<Recipes>(HttpStatus.OK);
+			response = new ResponseEntity<Recipes>(HttpStatus.NOT_FOUND);
 		}
 		return response;
 	}

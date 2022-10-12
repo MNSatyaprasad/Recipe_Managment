@@ -2,6 +2,7 @@ package com.recipe.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -47,16 +48,16 @@ class RecipeServiceImplTest {
 		when(repo.save(ArgumentMatchers.any(Recipes.class))).thenReturn(actual);
 		Recipes expected = recipeservice.addRecipe(actual);
 		assertEquals(expected, actual);
-		verify(repo).save(expected);
+
 	}
 	@Test
 	public void testUpdateRecipe() throws ResourceNotFound {
 		
 		 Recipes recipe = new Recipes(10,"Curry","NON-VEG","4",true,"potato","Order is Ready");
 	
-		  when(repo.findById(10)).thenThrow(ResourceNotFound.class);
+		  when(repo.findById(10)).thenReturn(Optional.of(recipe));
 		  recipe.setIngredients_name("Fish");	
-		  when(repo.save(ArgumentMatchers.any(Recipes.class))).thenReturn(recipe);
+		 when(repo.save(recipe)).thenReturn(recipe);
 		 assertEquals(recipeservice.updateRecipe(recipe, 10), recipe);
 		
 		}
@@ -78,14 +79,15 @@ class RecipeServiceImplTest {
 		when(repo.findById(10)).thenReturn(Optional.of(recipe1));
 		  assertNotEquals(recipeservice.getRecipeById(10), recipe1);
 	  }
-//	@Test
-//	public void testDeleteAllRecipes() {
-//
-//		
-//		
-//		Recipes recipe1 = new Recipes(10,"Curry","NON-VEG","4",true,"potato","Order is Ready");
-//		 when(repo.findById(recipe1.getId())).thenReturn(Optional.of(recipe1));
-//		 verify(repo).deleteById(recipe1.getId());
-//		 
-//	}
+	@Test
+	public void testDeleteAllRecipes() {
+		
+	recipeservice.deleteAllRecipes();
+	verify(repo,times(1)).deleteAll();
+	}
+	@Test
+	public void testDeleteRecipeById() {
+		recipeservice.deleteRecipeById(10);
+		verify(repo).deleteById(10);
+	}
 }
