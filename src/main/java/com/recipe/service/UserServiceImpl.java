@@ -1,5 +1,7 @@
 package com.recipe.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class UserServiceImpl implements IUserService {
 	public Users addUser(Users user) {
 		Users saveUser = userrepo.save(user);
 		return saveUser;
+	}
+	@Override
+	public List<Users> getRecipeByIngrediant(String ingredients_name) {
+		
+		return userrepo.getPersonsIngredient(ingredients_name);
 	}
 
 }

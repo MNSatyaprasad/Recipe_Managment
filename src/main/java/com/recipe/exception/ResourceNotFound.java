@@ -34,7 +34,7 @@ public class ResourceNotFound extends RuntimeException{
 		return serialVersionUID;
 	}
 	public ResourceNotFound(String resourceName, String fieldName, Object fieldvalue) {
-		super(String.format("%s Student not found %s",resourceName,fieldName,fieldvalue));
+		super(String.format("%s Recipe not found %s",resourceName,fieldName,fieldvalue));
 		this.resourceName = resourceName;
 		this.fieldName = fieldName;
 		this.fieldvalue = fieldvalue;

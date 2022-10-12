@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Recipes {
 	@Id
@@ -22,8 +24,9 @@ public class Recipes {
 	private String ingredients_name;
 	private String search;
 	
-//	@ManyToMany(mappedBy = "recipes",fetch = FetchType.LAZY)
-//	private List<Users> users;
+	@JsonIgnore
+	@ManyToMany(mappedBy = "recipes",fetch = FetchType.LAZY)
+	private List<Users> users;
 
 	public Integer getId() {
 		return id;
@@ -81,26 +84,26 @@ public class Recipes {
 		this.search = search;
 	}
 
-//	public List<Users> getUsers() {
-//		return users;
-//	}
-//
-//	public void setUsers(List<Users> users) {
-//		this.users = users;
-//	}
+	public List<Users> getUsers() {
+		return users;
+	}
+	
+	public void setUsers(List<Users> users) {
+		this.users = users;
+	}
 
-//	public Recipes(Integer id, String type, String name, String numberofServings, Boolean ingredients,
-//			String ingredients_name, String search, List<Users> users) {
-//		super();
-//		this.id = id;
-//		this.type = type;
-//		this.name = name;
-//		this.numberofServings = numberofServings;
-//		this.ingredients = ingredients;
-//		this.ingredients_name = ingredients_name;
-//		this.search = search;
-//		this.users = users;
-//	}
+	public Recipes(Integer id, String type, String name, String numberofServings, Boolean ingredients,
+			String ingredients_name, String search, List<Users> users) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.name = name;
+		this.numberofServings = numberofServings;
+		this.ingredients = ingredients;
+		this.ingredients_name = ingredients_name;
+		this.search = search;
+		this.users = users;
+	}
 
 	public Recipes(Integer id, String type, String name, String numberofServings, Boolean ingredients,
 			String ingredients_name, String search) {

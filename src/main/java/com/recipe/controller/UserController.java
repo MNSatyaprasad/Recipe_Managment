@@ -1,8 +1,12 @@
 package com.recipe.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +26,10 @@ public class UserController {
 	public ResponseEntity<Users> addUser(@RequestBody Users user){
 		Users adduser = userservice.addUser(user);
 		return new ResponseEntity<Users>(adduser,HttpStatus.OK);
+	}
+	@GetMapping("/{ingredients_name}")
+	public ResponseEntity<List<Users>> getPersonWithRecipeOfIngrediant(@PathVariable("ingredients_name") String ingredients_name){
+		List<Users> users = userservice.getRecipeByIngrediant(ingredients_name);
+		return new ResponseEntity<List<Users>>(users,HttpStatus.OK);
 	}
 }
